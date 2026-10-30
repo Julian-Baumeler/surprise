@@ -154,8 +154,8 @@
 
   function start() {
     if (running) return; running = true;
+    primeVideo();      // must run first: requestFullscreen consumes the tap's user activation in Chrome
     goFullscreen();
-    primeVideo();
     $('startScreen').classList.add('hidden');
     $('countScreen').classList.remove('hidden');
     let n = START; setNum(n);
@@ -198,7 +198,7 @@
   vid.addEventListener('ended', () => $('replay').classList.add('show'));
   vid.addEventListener('play', () => $('replay').classList.remove('show'));
   $('replay').addEventListener('click', () => {
-    goFullscreen(); $('replay').classList.remove('show'); confetti(); play(true);
+    $('replay').classList.remove('show'); play(true); goFullscreen(); confetti();
   });
   $('startBtn').addEventListener('click', start);
 
